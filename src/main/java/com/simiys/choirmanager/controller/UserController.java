@@ -2,14 +2,13 @@ package com.simiys.choirmanager.controller;
 
 import com.simiys.choirmanager.dao.UserRepository;
 import com.simiys.choirmanager.model.User;
-import com.simiys.choirmanager.model.UserForTemplate;
+import com.simiys.choirmanager.model.UserDTO;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public class UserController {
         }
 
         List<User> userList = IteratorUtils.toList(repository.findAll().iterator());
-        List<UserForTemplate> userlist = userList.stream().map(UserForTemplate::new).collect(Collectors.toList());
-        userlist.forEach(user -> user.worships = user.worships.subList(0,LocalDate.now().lengthOfMonth()));
+        List<UserDTO> userlist = userList.stream().map(UserDTO::new).collect(Collectors.toList());
+        //userlist.forEach(user -> user.worships = user.worships.subList(0,LocalDate.now().lengthOfMonth()));
 
         model.addAttribute("dates", dates);
         model.addAttribute("users", userlist);

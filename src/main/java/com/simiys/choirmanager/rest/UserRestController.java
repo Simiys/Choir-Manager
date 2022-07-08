@@ -3,7 +3,7 @@ package com.simiys.choirmanager.rest;
 
 import com.simiys.choirmanager.dao.UserRepository;
 import com.simiys.choirmanager.model.User;
-import com.simiys.choirmanager.model.UserForTemplate;
+import com.simiys.choirmanager.model.UserDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,8 +41,8 @@ public class UserRestController {
     }
 
     @PostMapping("/new")
-    public User newUser(@RequestBody String username) {
-        User user = new User(username);
+    public User newUser(@RequestBody UserDTO userDTO) {
+        User user = new User(userDTO.getUsername());
         repository.save(user);
         return user;
     }

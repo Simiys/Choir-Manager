@@ -1,12 +1,12 @@
 package com.simiys.choirmanager.model;
 
-import com.simiys.choirmanager.dao.UserRepository;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.*;
 import java.time.LocalDate;
 
-
+@Data
 @Entity
 @Table(name = "usrs")
 public class User {
@@ -27,31 +27,15 @@ public class User {
     @Column
     private int currentMonth;
 
-    public int getCurrentMonth() {
-        return currentMonth;
-    }
-
-    public String getLastMonthWorships() {
-        return lastMonthWorships;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
     public List<String> getWorships() {
         List<String> list =  Arrays.asList(this.worships.split(","));
         return list;
     }
     public User() {}
 
-    public User(UserForTemplate userForTemplate) {
-        this.username = userForTemplate.getUsername();
-        this.worships = userForTemplate.getNumbersString();
+    public User(UserDTO userDTO) {
+        this.username = userDTO.getUsername();
+        this.worships = userDTO.getWorshipsString();
     }
 
     public User (String username) {
