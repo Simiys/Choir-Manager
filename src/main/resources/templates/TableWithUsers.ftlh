@@ -26,14 +26,13 @@
 
                     Darray.push(arr1);
                 }
-
-
-
-
              let ret = [];
 
              for(let i = 1; i < Darray.length; i+=2) {
                 ret.push(Darray[i]);
+             }
+             for (let i = 0; i < ret.length; i++){
+                ret[i].splice(1,1);
              }
              let json = JSON.stringify(ret);
              console.log(JSON.stringify(ret));
@@ -42,8 +41,6 @@
                 xhr.open("POST", '/api/updateWorships', false);
                  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                 xhr.send(json);
-
-                alert("succeeded request");
 
             }</script>
 
@@ -96,11 +93,14 @@
                     button:active{
                     background-color:#999999;
                 }
+                .email{
+                    display: none;
+                }
             </STYLE>
 
 </head>
 <body>
-<table id="tableWithUsers" >
+<table id="tableWithUsers">
     <#list users as user>
         <tr>
             <td style="text-align:left;">Дата</td>
@@ -109,7 +109,8 @@
             </#list>
         </tr>
         <tr>
-            <th>${user.username}</th>
+            <th class="email">${user.username}</th>
+            <th>${user.firstName} ${user.lastName}</th>
                 <#list user.worships as worship>
                     <td><select style="width: 33px;">
                         <#if "Н" == worship>
@@ -139,6 +140,10 @@
     </#list>
 </table>
 <button onclick="func()">button</button>
+<form method="post" action="/auth/login">
+    <button type="submit">Logout</button>
+</form>
+
 
 </body>
 </html>

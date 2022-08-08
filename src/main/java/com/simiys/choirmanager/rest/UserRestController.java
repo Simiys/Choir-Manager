@@ -1,65 +1,37 @@
 package com.simiys.choirmanager.rest;
 
 
-import com.simiys.choirmanager.dao.UserRepository;
-import com.simiys.choirmanager.model.User;
-import com.simiys.choirmanager.model.UserDTO;
-import org.apache.commons.lang3.StringUtils;
+import com.simiys.choirmanager.dao.DirectorRepository;
+import com.simiys.choirmanager.dao.SingerRepository;
+import com.simiys.choirmanager.model.ChoirDirector;
+import com.simiys.choirmanager.model.Role;
+import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.apache.commons.collections.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
 
     @Autowired
-    UserRepository repository;
+    SingerRepository singerRepository;
 
-    @GetMapping("/{name}")
-    public User getUserByName (@RequestParam String name) {
-        repository.findAll().forEach(user -> {
-            user.monthUpdate();
-            repository.save(user);
-        });
-        return repository.getByUsername(name).orElseThrow(() -> {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        });
-    }
-
-    @GetMapping("/all")
-    public List<User> getAllUsers () {
-        repository.findAll().forEach(user -> {
-            user.monthUpdate();
-            repository.save(user);
-        });
-        return IteratorUtils.toList(repository.findAll().iterator());
-    }
-
-    @PostMapping("/new")
-    public User newUser(@RequestBody UserDTO userDTO) {
-        User user = new User(userDTO.getUsername());
-        repository.save(user);
-        return user;
-    }
+    @Autowired
+    DirectorRepository directorRepository;
 
     @PostMapping("/updateWorships")
-    public void updateAllWorships (@RequestBody List<List<String>> list) {
-        System.out.println("update started");
+    public void updateAllWorships(@RequestBody List<List<String>> list) {
+        List<String> forDirector = list.get(list.size() - 1);
+        ChoirDirector director = directorRepository.findByEmail(forDirector.get(0)).orElseThrow();
+        director.update(forDirector.subList(1, forDirector.size()));
+        list.remove(list.size() - 1);
         list.forEach(l -> {
-            User user = repository.getByUsername(l.get(0)).get();
-            user.update(StringUtils.join(l.subList(1,l.size()),','));
-            System.out.println(StringUtils.join(l.subList(1,l.size()),',') + " to update");
-            repository.save(user);
-            System.out.println("user " + user.getUsername() + " updated");
-            System.out.println(user.getWorships());
+            Singer singer = singerRepository.findByEmail(l.get(0)).get();
+            singer.update(l.subList(1, l.size()));
+            singerRepository.save(singer);
         });
-        System.out.println("all right");
-
     }
-
 }
