@@ -18,12 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final DirectorRepository directorRepository;
 
-
     @Autowired
     public UserDetailsServiceImpl(SingerRepository singerRepository, DirectorRepository directorRepository) {
         this.singerRepository = singerRepository;
         this.directorRepository = directorRepository;
-
     }
 
     @Override

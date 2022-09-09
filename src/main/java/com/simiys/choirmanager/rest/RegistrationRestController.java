@@ -2,18 +2,21 @@ package com.simiys.choirmanager.rest;
 
 import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
+import com.simiys.choirmanager.events.OnRegistrationDirectorEvent;
+import com.simiys.choirmanager.events.OnRegistrationSingerEvent;
 import com.simiys.choirmanager.model.ChoirDirector;
 import com.simiys.choirmanager.model.Singer;
-import com.simiys.choirmanager.model.Status;
 import com.simiys.choirmanager.model.UserForRegistration;
+import com.simiys.choirmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
+
+
+import javax.servlet.http.HttpServletRequest;
 
 @RequestMapping("/api")
 @RestController
@@ -23,12 +26,18 @@ public class RegistrationRestController {
     SingerRepository singerRepository;
 
     @Autowired
+    ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    UserService service;
+
+    @Autowired
     DirectorRepository directorRepository;
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @PostMapping("/registr")
-    public String registrUser(@RequestBody UserForRegistration user){
+    public String registrUser(@RequestBody UserForRegistration user, HttpServletRequest request){
         try {
             if (!user.allFieldsFilled()) {
                 return "fillException";
@@ -43,27 +52,17 @@ public class RegistrationRestController {
             return "passwordError";
         }
 
-        boolean isPresent;
-        if(user.isRegent()) {
-            isPresent = directorRepository.findByEmail(user.getEmail()).isPresent();
-        } else {
-            isPresent = singerRepository.findByEmail(user.getEmail()).isPresent();
-        }
-
+        boolean isPresent = directorRepository.findByEmail(user.getEmail()).isPresent() || singerRepository.findByEmail(user.getEmail()).isPresent();
         if(isPresent){
             return "userIsPresent";
         }
 
         if(user.isRegent()) {
-            ChoirDirector director = new ChoirDirector(
-                    user.getEmail(),encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
-            director.setStatus(Status.BANNED);
-            directorRepository.save(director);
+            ChoirDirector director =  service.registrRegent(user);
+            eventPublisher.publishEvent(new OnRegistrationDirectorEvent(director, request.getLocale(), request.getContextPath()));
         } else {
-            Singer singer = new Singer(
-                    user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
-            singer.setStatus(Status.BANNED);
-            singerRepository.save(singer);
+            Singer singer = service.registrSinger(user);
+            eventPublisher.publishEvent(new OnRegistrationSingerEvent(singer, request.getLocale(), request.getContextPath()));
         }
         return "success";
     }

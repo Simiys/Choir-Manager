@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -80,7 +78,6 @@ public class UserController {
 
     @GetMapping("/def")
     public String def(Principal principal) {
-        System.out.println("def");
         if ((directorRepository.findByEmail(principal.getName()).isPresent())){
             return "redirect:/all";
         } else {

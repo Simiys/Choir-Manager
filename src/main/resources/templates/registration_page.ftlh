@@ -14,7 +14,6 @@
     registration.isRegent = document.getElementById("regent").checked;
 
     let json = JSON.stringify(registration);
-    console.log(registration);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/api/registr', false);
@@ -35,7 +34,7 @@
             document.getElementById("userispresent").removeAttribute("hidden");
         break;
         default:
-        console.log("success")
+        window.location.replace("/passrec/alert?type=REG_MM");
     }
 
 }
@@ -43,24 +42,26 @@
 </head>
 <body>
 <br>
-<label for="email">Email:</label>
-<input  id="email">
-<br>
-<label for="firstName">Имя:</label>
-<input  id="firstName">
-<br>
-<label for="lastName">Фамилия:</label>
-<input  id="lastName">
-<br>
-<label for="password">Пароль:</label>
-<input  id="password">
-<br>
-<label for="matching password">Повтрите пароль:</label>
-<input  id="matching password">
-<br>
-<label for="regent">Выберите, если хотите быть регентом:</label>
-<input type="checkbox" id="regent">
-<br>
+    <form name="reg">
+    <label for="email">Email:</label>
+    <input  id="email" required>
+    <br>
+    <label for="firstName">Имя:</label>
+    <input  id="firstName" required>
+    <br>
+    <label for="lastName">Фамилия:</label>
+    <input  id="lastName" value="">
+    <br>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" required>
+    <br>
+    <label for="matching password" >Повтрите пароль:</label>
+    <input type="password" id="matching password" required>
+    <br>
+    <label for="regent">Выберите, если хотите быть регентом:</label>
+    <input type="checkbox" id="regent">
+    <br>
+</form>
 <p hidden id="emailerror" class="error">Email указан неправильно</p>
 <p hidden id="fieldserror" class="error">Все поля должны быть запонленены</p>
 <p hidden id="matchingerror" class="error">Поля пароль и повторите пароль должны совпадать</p>

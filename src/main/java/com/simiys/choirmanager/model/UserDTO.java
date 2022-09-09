@@ -1,12 +1,14 @@
 package com.simiys.choirmanager.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class UserDTO {
     private String username;
     private String firstName;
@@ -25,5 +27,12 @@ public class UserDTO {
         this.lastName = director.getLastName();
         this.worships = new ArrayList<>(Arrays.asList(director.getWorships().split(",")));
         this.username = director.getEmail();
+    }
+
+    public UserDTO(String username) {
+        this.username = username;
+        this.lastName = null;
+        this.firstName = null;
+        this.worships = null;
     }
 }

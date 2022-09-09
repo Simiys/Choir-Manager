@@ -27,11 +27,14 @@ public class UserRestController {
         List<String> forDirector = list.get(list.size() - 1);
         ChoirDirector director = directorRepository.findByEmail(forDirector.get(0)).orElseThrow();
         director.update(forDirector.subList(1, forDirector.size()));
-        list.remove(list.size() - 1);
-        list.forEach(l -> {
-            Singer singer = singerRepository.findByEmail(l.get(0)).get();
-            singer.update(l.subList(1, l.size()));
-            singerRepository.save(singer);
-        });
+        directorRepository.save(director);
+        if(list.size() > 1) {
+            list.remove(list.size() - 1);
+            list.forEach(l -> {
+                Singer singer = singerRepository.findByEmail(l.get(0)).get();
+                singer.update(l.subList(1, l.size()));
+                singerRepository.save(singer);
+            });
+        }
     }
 }
