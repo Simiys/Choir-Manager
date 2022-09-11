@@ -3,7 +3,6 @@ package com.simiys.choirmanager.rest;
 
 import com.simiys.choirmanager.dao.UserRepository;
 import com.simiys.choirmanager.model.User;
-import com.simiys.choirmanager.model.UserForTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
