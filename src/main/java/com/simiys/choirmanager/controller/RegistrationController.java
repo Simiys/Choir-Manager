@@ -52,7 +52,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/confirmRegistrationForDirector")
-    public String confirmRegistrationForDirector(@RequestParam("token") String token, Model model) {
+    public String confirmRegistrationForDirector(@RequestParam("token") String token) {
         DirectorVerificationToken verificationToken = service.getDirectorVerificationToken(token);
 
         if(verificationToken.equals(null)) {

@@ -5,7 +5,7 @@
     <title>Choir Manager</title>
 </head>
 <body>
-<h1>Welcome to the Choir Manager</h1>
+<h1>Welcome to the Chorus Manager</h1>
 <p>This web-application help you to manage your choir</p>
 
 <form method="get" action="/auth/login">

@@ -34,7 +34,7 @@ public class RegistrationRestController {
     @Autowired
     DirectorRepository directorRepository;
 
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+//    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @PostMapping("/registr")
     public String registrUser(@RequestBody UserForRegistration user, HttpServletRequest request){
@@ -58,6 +58,7 @@ public class RegistrationRestController {
         }
 
         if(user.isRegent()) {
+            System.out.println(user.getPassword() + " RRC 61 director password");
             ChoirDirector director =  service.registrRegent(user);
             eventPublisher.publishEvent(new OnRegistrationDirectorEvent(director, request.getLocale(), request.getContextPath()));
         } else {

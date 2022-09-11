@@ -2,6 +2,9 @@ package com.simiys.choirmanager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -10,7 +13,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "directors")
 @AllArgsConstructor
 public class ChoirDirector {
@@ -65,7 +69,11 @@ public class ChoirDirector {
     public void monthUpdate() {
         if (this.currentMonth != LocalDate.now().getMonthValue()) {
             this.lastMonthWorships = this.worships;
-            this.worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
+            String [] worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н".split(",");
+            for (int i = LocalDate.now().lengthOfMonth(); worships.length > LocalDate.now().lengthOfMonth();i--) {
+                worships = ArrayUtils.remove(worships, i);
+            }
+            this.worships = StringUtils.join(worships, ",");
             this.currentMonth = LocalDate.now().getMonthValue();
         }
     }
@@ -74,14 +82,13 @@ public class ChoirDirector {
     }
 
     public ChoirDirector(String email, String password,String firstName, String lastName) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
         this.worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
         this.lastMonthWorships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
         this.currentMonth = LocalDate.now().getMonthValue();
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = encoder.encode(password);
+        this.password = password;
         this.role = Role.REGENT;
         this.status = Status.ACTIVE;
         this.choir = new HashSet<>();

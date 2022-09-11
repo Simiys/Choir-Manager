@@ -34,8 +34,9 @@ public class UserService {
 
     public ChoirDirector registrRegent(UserForRegistration user){
         ChoirDirector director = new ChoirDirector(
-                user.getEmail(),encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
+                user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
         director.setStatus(Status.REGISTRATION);
+        director.setPassword(encoder.encode(user.getPassword()));
         directorRepository.save(director);
         setDirectorForeingKey(director);
         return director;
@@ -45,6 +46,7 @@ public class UserService {
         Singer singer = new Singer(
                 user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
         singer.setStatus(Status.REGISTRATION);
+        singer.setPassword(encoder.encode(user.getPassword()));
         singerRepository.save(singer);
         return singer;
     }

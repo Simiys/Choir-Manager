@@ -3,6 +3,7 @@ package com.simiys.choirmanager.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -69,7 +70,11 @@ public class Singer {
     public void monthUpdate() {
         if (this.currentMonth != LocalDate.now().getMonthValue()) {
             this.lastMonthWorships = this.worships;
-            this.worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
+            String [] worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н".split(",");
+            for (int i = LocalDate.now().lengthOfMonth(); worships.length > LocalDate.now().lengthOfMonth();i--) {
+                worships = ArrayUtils.remove(worships, i);
+            }
+            this.worships = StringUtils.join(worships, ",");
             this.currentMonth = LocalDate.now().getMonthValue();
         }
     }
