@@ -8,7 +8,8 @@ public enum AlertMessages {
     SMTH_WRONG("Похоже, что-то пошло не так..."),
     NO_SUCH_USER_PRESENT("Такой пользователь не зарегистрирован. \n Проверьте правилность ввода email или зарегистрируйтесь."),
     REGISTRATION_COMPLETE("Регистрация успешно завершена!"),
-    RECOVERY_COMPLETE("Пароль успешно изменен!");
+    RECOVERY_COMPLETE("Пароль успешно изменен!"),
+    JOIN("Вы успешно присоеденились к хору!");
 
     private String message;
 

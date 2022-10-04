@@ -13,7 +13,7 @@
             xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
             xhr.send(send);
             let resp = xhr.response;
-            window.location.replace("/passrec/alert?type=" + resp);
+            window.location.replace("/alert?type=" + resp);
         }
     </script>
 </head>

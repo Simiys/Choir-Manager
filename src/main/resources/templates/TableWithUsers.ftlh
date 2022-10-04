@@ -139,7 +139,7 @@
         </tr>
     </#list>
 </table>
-<button onclick="func()">button</button>
+<button onclick="func()">Подтвердить</button>
 <form method="post" action="/auth/login">
     <button type="submit">Logout</button>
 </form>

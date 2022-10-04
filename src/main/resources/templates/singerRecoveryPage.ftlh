@@ -31,7 +31,7 @@
                 console.log(document.getElementById("pass_1").value);
                 xhr.send(document.getElementById("pass_1").value);
                 let resp = xhr.response;
-                window.location.replace("/passrec/alert?type=" + resp);
+                window.location.replace("/alert?type=" + resp);
             }
 
         }
@@ -49,7 +49,7 @@
             <label for="pasS_2">Повторите пароль</label>
             <input type="text" id="pass_2">
         </p>
-        <button onclick="send()">Воостановить пароль</button>
+        <button onclick="send()">Восстановить пароль</button>
     <h1 id="msg" style="display:none">Пароли должны совпадать</h1>
 </div>
 </body>

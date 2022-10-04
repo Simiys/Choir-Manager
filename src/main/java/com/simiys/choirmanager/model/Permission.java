@@ -1,7 +1,8 @@
 package com.simiys.choirmanager.model;
 
 public enum Permission {
-    READ("read");
+    READ("read"),
+    JOIN_CHOIRS("join_choirs");
 
     private final String permission;
 

@@ -15,7 +15,9 @@ public class UserForRegistration {
     private String matchingPassword;
     private String firstName;
     private String lastName;
+    private String choirName;
     private boolean isRegent;
+
 
     public boolean validPassword() {
         return this.password.equals(this.matchingPassword);

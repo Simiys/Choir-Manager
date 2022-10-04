@@ -6,5 +6,8 @@
 </head>
 <body>
 <p>${message}</p>
+<form method="get" action="/home">
+    <button type="submit">На главную</button>
+</form>
 </body>
 </html>

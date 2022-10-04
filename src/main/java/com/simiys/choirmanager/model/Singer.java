@@ -72,7 +72,7 @@ public class Singer {
             this.lastMonthWorships = this.worships;
             String [] worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н".split(",");
             for (int i = LocalDate.now().lengthOfMonth(); worships.length > LocalDate.now().lengthOfMonth();i--) {
-                worships = ArrayUtils.remove(worships, i);
+                worships = ArrayUtils.remove(worships, i - 1);
             }
             this.worships = StringUtils.join(worships, ",");
             this.currentMonth = LocalDate.now().getMonthValue();

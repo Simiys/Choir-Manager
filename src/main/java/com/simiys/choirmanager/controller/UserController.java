@@ -2,6 +2,7 @@ package com.simiys.choirmanager.controller;
 
 import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
+import com.simiys.choirmanager.model.AlertMessages;
 import com.simiys.choirmanager.model.ChoirDirector;
 import com.simiys.choirmanager.model.Singer;
 import com.simiys.choirmanager.model.UserDTO;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -85,6 +87,42 @@ public class UserController {
         }
     }
 
+    @GetMapping("/choirlist")
+    public String hui() {
+        return "choirslist";
+    }
 
+    @GetMapping("/alert")
+    public String method(@RequestParam String type, Model model) {
+        switch (type) {
+            case "TI":
+                model.addAttribute("message", AlertMessages.TOKEN_INVALID.getMessage());
+                return "AlertPage";
+            case "TE":
+                model.addAttribute("message", AlertMessages.TOKEN_EXPIRED.getMessage());
+                return "AlertPage";
+            case "RECOVERY_C":
+                model.addAttribute("message", AlertMessages.RECOVERY_COMPLETE.getMessage());
+                return "AlertPage";
+            case "SW":
+                model.addAttribute("message", AlertMessages.SMTH_WRONG.getMessage());
+                return "AlertPage";
+            case "REG_C":
+                model.addAttribute("message", AlertMessages.REGISTRATION_COMPLETE.getMessage());
+                return "AlertPage";
+            case "RECOVERY_MM":
+                model.addAttribute("message", AlertMessages.RECOVERY_MAIL_MESSSAGE.getMessage());
+                return "AlertPage";
+            case "NSUP":
+                model.addAttribute("message", AlertMessages.NO_SUCH_USER_PRESENT.getMessage());
+                return "AlertPage";
+            case "JOIN":
+                model.addAttribute("message", AlertMessages.JOIN.getMessage());
+                return "AlertPage";
+            default:
+                model.addAttribute("message", AlertMessages.REGISTRATION_MAIL_MESSAGE.getMessage());
+                return "AlertPage";
+        }
+    }
 
 }

@@ -2,15 +2,18 @@ package com.simiys.choirmanager.model.tokens;
 
 import com.simiys.choirmanager.model.Singer;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity(name = "pass_rec_singer")
-@Data
+@Entity(name = "singer_password_recovery_token")
+@Getter
+@Setter
 @NoArgsConstructor
 public class SingerPasswordRecoveryToken {
     @Id

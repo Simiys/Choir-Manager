@@ -9,4 +9,5 @@ import java.util.Optional;
 @Qualifier("DirectorRepository")
 public interface DirectorRepository extends CrudRepository<ChoirDirector, Long> {
     Optional<ChoirDirector> findByEmail(String email);
+    Optional<ChoirDirector> findById (long id);
 }

@@ -1,13 +1,10 @@
 package com.simiys.choirmanager.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -53,6 +50,9 @@ public class ChoirDirector {
     @Column(name = "current_month")
     private int currentMonth;
 
+    @Column(name = "choir_name")
+    private String choirName;
+
     @OneToMany(mappedBy = "director", cascade = CascadeType.ALL)
     private Set<Singer> choir;
 
@@ -71,7 +71,7 @@ public class ChoirDirector {
             this.lastMonthWorships = this.worships;
             String [] worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н".split(",");
             for (int i = LocalDate.now().lengthOfMonth(); worships.length > LocalDate.now().lengthOfMonth();i--) {
-                worships = ArrayUtils.remove(worships, i);
+                worships = ArrayUtils.remove(worships, i - 1);
             }
             this.worships = StringUtils.join(worships, ",");
             this.currentMonth = LocalDate.now().getMonthValue();

@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <h1>Добро пожвловать, ${user.firstName}</h1>
+    <h1>Добро пожаловать, ${user.firstName}</h1>
     <h2>Твои службы на этот месяц</h2>
     <#assign datearr = dates>
     <#assign worships = user.worships>

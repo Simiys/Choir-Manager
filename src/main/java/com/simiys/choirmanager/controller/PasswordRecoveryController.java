@@ -113,9 +113,7 @@ public class PasswordRecoveryController {
     @PostMapping("/singerRecover")
     @ResponseBody
     public String overwriteSingerPassword(@RequestBody String password, HttpServletRequest request) {
-        System.out.println("PRC 115 " + password);
         Cookie[] cookies = request.getCookies();
-        System.out.println(cookies.length);
         SingerPasswordRecoveryToken token = new SingerPasswordRecoveryToken();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -140,7 +138,7 @@ public class PasswordRecoveryController {
 
     @PostMapping("/directorRecover")
     @ResponseBody
-    public String overwriteDirectorPassword(@RequestBody String password, HttpServletRequest request, Model model) {
+    public String overwriteDirectorPassword(@RequestBody String password, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         DirectorPasswordRecoveryToken token = new DirectorPasswordRecoveryToken();
         if (cookies != null) {
@@ -161,35 +159,5 @@ public class PasswordRecoveryController {
 
         return "RECOVERY_C";
 
-    }
-
-    @GetMapping("/alert")
-    public String method(@RequestParam String type, Model model, HttpServletResponse response) {
-        switch (type) {
-            case "TI":
-                model.addAttribute("message", AlertMessages.TOKEN_INVALID.getMessage());
-                return "AlertPage";
-            case "TE":
-                model.addAttribute("message", AlertMessages.TOKEN_EXPIRED.getMessage());
-                return "AlertPage";
-            case "RECOVERY_C":
-                model.addAttribute("message", AlertMessages.RECOVERY_COMPLETE.getMessage());
-                return "AlertPage";
-            case "SW":
-                model.addAttribute("message", AlertMessages.SMTH_WRONG.getMessage());
-                return "AlertPage";
-            case "REG_C":
-                model.addAttribute("message", AlertMessages.REGISTRATION_COMPLETE.getMessage());
-                return "AlertPage";
-            case "RECOVERY_MM":
-                model.addAttribute("message", AlertMessages.RECOVERY_MAIL_MESSSAGE.getMessage());
-                return "AlertPage";
-            case "NSUP":
-                model.addAttribute("message", AlertMessages.NO_SUCH_USER_PRESENT.getMessage());
-                return "AlertPage";
-            default:
-                model.addAttribute("message", AlertMessages.REGISTRATION_MAIL_MESSAGE.getMessage());
-                return "AlertPage";
-        }
     }
 }

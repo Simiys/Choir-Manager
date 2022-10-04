@@ -32,23 +32,23 @@ public class RegistrationController {
     }
 
     @GetMapping("/confirmRegistrationForSinger")
-    public String confirmRegistrationForSinger(@RequestParam("token")String token, Model model){
+    public String confirmRegistrationForSinger(@RequestParam("token")String token){
         SingerVerificationToken singerVerificationToken = service.getSingerVerificationToken(token);
 
         if(singerVerificationToken.equals(null)) {
-            return "redirect:/passrec/alert?type=TI";
+            return "redirect:/alert?type=TI";
         }
 
         Singer singer = singerVerificationToken.getSinger();
         Calendar calendar = Calendar.getInstance();
         if((singerVerificationToken.getExpireDate().getTime() - calendar.getTime().getTime()) <=0) {
-            return "redirect:/passrec/alert?type=TE";
+            return "redirect:/alert?type=TE";
         }
 
         singer.setStatus(Status.ACTIVE);
         singerRepository.save(singer);
 
-        return "redirect:/passrec/alert?type=REG_C";
+        return "redirect:/alert?type=REG_C";
     }
 
     @GetMapping("/confirmRegistrationForDirector")
@@ -56,22 +56,22 @@ public class RegistrationController {
         DirectorVerificationToken verificationToken = service.getDirectorVerificationToken(token);
 
         if(verificationToken.equals(null)) {
-            return "redirect:/passrec/alert?type=TI";
+            return "redirect:/alert?type=TI";
         }
 
         ChoirDirector director = verificationToken.getDirector();
         Calendar calendar = Calendar.getInstance();
         if((verificationToken.getExpireDate().getTime() - calendar.getTime().getTime()) <= 0) {
-            return "redirect:/passrec/alert?type=TE";
+            return "redirect:/alert?type=TE";
         }
 
         director.setStatus(Status.ACTIVE);
         directorRepository.save(director);
-        return "redirect:/passrec/alert?type=REG_C";
+        return "redirect:/alert?type=REG_C";
     }
 
     @GetMapping("/regSuccess")
-    public String regSuccess(Model model) {
-         return "redirect:/passrec/alert?type=REG_MM";
+    public String regSuccess() {
+         return "redirect:/alert?type=REG_MM";
     }
 }

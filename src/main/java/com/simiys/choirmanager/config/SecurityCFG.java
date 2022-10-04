@@ -1,5 +1,7 @@
 package com.simiys.choirmanager.config;
 
+import com.simiys.choirmanager.model.Permission;
+import com.simiys.choirmanager.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -30,15 +32,20 @@ public class SecurityCFG extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/passrec/**").anonymous()
+                .antMatchers("/logincheck").anonymous()
                 .antMatchers("/confirmRegistrationForSinger").anonymous()
                 .antMatchers("/confirmRegistrationForDirector").anonymous()
+                .antMatchers("/choirlist").hasAuthority(Permission.JOIN_CHOIRS.getPermission())
+                .antMatchers("/api/joinToChoir").hasAuthority(Permission.JOIN_CHOIRS.getPermission())
                 .antMatchers("/auth/home").anonymous()
                 .antMatchers("/home").anonymous()
                 .antMatchers("/api/registr").anonymous()
                 .antMatchers("/alert").anonymous()
                 .antMatchers("/registration").anonymous()
+                .antMatchers("/alert").anonymous()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -52,11 +59,11 @@ public class SecurityCFG extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
                 .deleteCookies("RECOVERYTOKEN")
-                .logoutSuccessUrl("/auth/home");
+                .logoutSuccessUrl("/auth/home")                ;
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 

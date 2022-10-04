@@ -4,6 +4,8 @@ import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
 import com.simiys.choirmanager.model.ChoirDirector;
 import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.Status;
+import com.simiys.choirmanager.model.exeptions.BannedStatuExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

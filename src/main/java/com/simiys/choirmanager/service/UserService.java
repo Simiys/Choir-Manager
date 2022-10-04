@@ -36,9 +36,11 @@ public class UserService {
         ChoirDirector director = new ChoirDirector(
                 user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
         director.setStatus(Status.REGISTRATION);
+        director.setChoirName(user.getChoirName());
         director.setPassword(encoder.encode(user.getPassword()));
         directorRepository.save(director);
         setDirectorForeingKey(director);
+        director.monthUpdate();
         return director;
     }
 
@@ -48,6 +50,7 @@ public class UserService {
         singer.setStatus(Status.REGISTRATION);
         singer.setPassword(encoder.encode(user.getPassword()));
         singerRepository.save(singer);
+        singer.monthUpdate();
         return singer;
     }
 
