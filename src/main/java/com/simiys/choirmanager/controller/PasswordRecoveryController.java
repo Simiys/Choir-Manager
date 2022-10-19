@@ -6,18 +6,16 @@ import com.simiys.choirmanager.dao.SingerPassRecRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
 import com.simiys.choirmanager.events.OnDirectorPasswordRecoveryEvent;
 import com.simiys.choirmanager.events.OnSingerPasswordRecoveryEvent;
-import com.simiys.choirmanager.model.AlertMessages;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import com.simiys.choirmanager.model.UserDTO;
-import com.simiys.choirmanager.model.tokens.DirectorPasswordRecoveryToken;
-import com.simiys.choirmanager.model.tokens.SingerPasswordRecoveryToken;
+import com.simiys.choirmanager.model.tables.tokens.DirectorPasswordRecoveryToken;
+import com.simiys.choirmanager.model.tables.tokens.SingerPasswordRecoveryToken;
 import com.simiys.choirmanager.service.PasswordRecoveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -55,7 +53,6 @@ public class PasswordRecoveryController {
     @PostMapping("/request")
     @ResponseBody
     public String recoveryRequest(@RequestBody UserDTO dto) {
-        System.out.println("PRC 78 started");
         if (directorRepository.findByEmail(dto.getUsername()).isPresent()) {
             ChoirDirector director = directorRepository.findByEmail(dto.getUsername()).get();
             eventPublisher.publishEvent(new OnDirectorPasswordRecoveryEvent(director));
@@ -72,15 +69,14 @@ public class PasswordRecoveryController {
     public String passwordRecoveryForSinger(@RequestParam("token")String token, HttpServletResponse response) {
 
         if (token.equals(null) || singerPassRecRepository.findByToken(token).isEmpty()) {
-            return "redirect:/passrec/alert?type=TI";
+            return "redirect:/alert?type=TI";
         }
         SingerPasswordRecoveryToken recoveryToken = service.findSingerToken(token);
 
         Calendar calendar = Calendar.getInstance();
         if(recoveryToken.getExpireDate().getTime() - calendar.getTime().getTime() <= 0) {
-            return "redirect:/passrec/alert?type=TE";
+            return "redirect:/alert?type=TE";
         }
-        System.out.println("PRC 83 creating token");
         Cookie cookie = new Cookie("RECOVERYTOKEN", token);
         cookie.setPath("/passrec/");
         response.addCookie(cookie);
@@ -92,16 +88,15 @@ public class PasswordRecoveryController {
     public String passwordRecoveryForDirector(@RequestParam("token")String token, HttpServletResponse response) {
 
         if (token.equals(null) || directorPassRecRepository.findByToken(token).isEmpty()) {
-            return "redirect:/passrec/alert?type=TI";
+            return "redirect:/alert?type=TI";
         }
 
         DirectorPasswordRecoveryToken recoveryToken = service.findDirectorToken(token);
 
         Calendar calendar = Calendar.getInstance();
         if(recoveryToken.getExpireDate().getTime() - calendar.getTime().getTime() <= 0) {
-            return "redirect:/passrec/alert?type=TE";
+            return "redirect:/alert?type=TE";
         }
-        System.out.println("PRC 104 creating cookie");
         Cookie cookie = new Cookie("RECOVERYTOKEN", token);
         cookie.setPath("/passrec/");
         response.addCookie(cookie);

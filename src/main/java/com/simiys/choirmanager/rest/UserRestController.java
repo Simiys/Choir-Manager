@@ -3,10 +3,8 @@ package com.simiys.choirmanager.rest;
 
 import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Role;
-import com.simiys.choirmanager.model.Singer;
-import com.simiys.choirmanager.model.Status;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

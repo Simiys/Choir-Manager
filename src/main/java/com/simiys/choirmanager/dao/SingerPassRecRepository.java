@@ -1,6 +1,6 @@
 package com.simiys.choirmanager.dao;
 
-import com.simiys.choirmanager.model.tokens.SingerPasswordRecoveryToken;
+import com.simiys.choirmanager.model.tables.tokens.SingerPasswordRecoveryToken;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

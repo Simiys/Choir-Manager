@@ -1,24 +1,22 @@
-package com.simiys.choirmanager.model.tokens;
+package com.simiys.choirmanager.model.tables.tokens;
 
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity(name = "singer_password_recovery_token")
-@Getter
-@Setter
+@Entity
 @NoArgsConstructor
-public class SingerPasswordRecoveryToken {
+@Data
+public class DirectorPasswordRecoveryToken {
+
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @Column
     private String token;
@@ -26,9 +24,9 @@ public class SingerPasswordRecoveryToken {
     @Column
     private Date expireDate;
 
-    @OneToOne(targetEntity = Singer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "singer_id")
-    private Singer singer;
+    @OneToOne(targetEntity = ChoirDirector.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dir_id")
+    private ChoirDirector director;
 
     private Date calculateExpireDate() {
         Calendar calendar = Calendar.getInstance();
@@ -37,9 +35,10 @@ public class SingerPasswordRecoveryToken {
         return new Date(calendar.getTime().getTime());
     }
 
-    public SingerPasswordRecoveryToken(Singer singer, String token) {
+    public DirectorPasswordRecoveryToken(ChoirDirector director, String token) {
         this.token = token;
-        this.singer = singer;
+        this.director = director;
         this.expireDate = calculateExpireDate();
     }
+
 }

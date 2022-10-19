@@ -1,6 +1,6 @@
 package com.simiys.choirmanager.dao;
 
-import com.simiys.choirmanager.model.ChoirDirector;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 

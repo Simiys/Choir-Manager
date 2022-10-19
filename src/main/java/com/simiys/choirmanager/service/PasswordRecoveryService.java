@@ -4,14 +4,12 @@ import com.simiys.choirmanager.dao.DirectorPassRecRepository;
 import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerPassRecRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
-import com.simiys.choirmanager.model.tokens.DirectorPasswordRecoveryToken;
-import com.simiys.choirmanager.model.tokens.SingerPasswordRecoveryToken;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
+import com.simiys.choirmanager.model.tables.tokens.DirectorPasswordRecoveryToken;
+import com.simiys.choirmanager.model.tables.tokens.SingerPasswordRecoveryToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Calendar;
 
 @Service
 public class PasswordRecoveryService {

@@ -1,7 +1,7 @@
 package com.simiys.choirmanager.security;
 
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import com.simiys.choirmanager.model.Status;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,7 +1,6 @@
 package com.simiys.choirmanager.config;
 
 import com.simiys.choirmanager.model.Permission;
-import com.simiys.choirmanager.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -40,8 +39,11 @@ public class SecurityCFG extends WebSecurityConfigurerAdapter {
                 .antMatchers("/confirmRegistrationForDirector").anonymous()
                 .antMatchers("/choirlist").hasAuthority(Permission.JOIN_CHOIRS.getPermission())
                 .antMatchers("/api/joinToChoir").hasAuthority(Permission.JOIN_CHOIRS.getPermission())
-                .antMatchers("/auth/home").anonymous()
-                .antMatchers("/home").anonymous()
+                .antMatchers("/choirs/ref").hasAuthority(Permission.JOIN_CHOIRS.getPermission())
+                .antMatchers("/choirs/verdict").hasAuthority(Permission.MANAGE_CHOIR.getPermission())
+                .antMatchers("/refuseMessages").hasAuthority(Permission.MANAGE_CHOIR.getPermission())
+                .antMatchers("/sendRegEmail").anonymous()
+                .antMatchers("/").anonymous()
                 .antMatchers("/api/registr").anonymous()
                 .antMatchers("/alert").anonymous()
                 .antMatchers("/registration").anonymous()
@@ -59,7 +61,7 @@ public class SecurityCFG extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
                 .deleteCookies("RECOVERYTOKEN")
-                .logoutSuccessUrl("/auth/home")                ;
+                .logoutSuccessUrl("/");
     }
 
     @Override

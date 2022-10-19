@@ -1,7 +1,7 @@
 package com.simiys.choirmanager.listeners;
 
 import com.simiys.choirmanager.events.OnRegistrationDirectorEvent;
-import com.simiys.choirmanager.model.ChoirDirector;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import com.simiys.choirmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -20,9 +20,6 @@ public class DirectorRegistrationListener implements ApplicationListener<OnRegis
     private JavaMailSender mailSender;
 
     @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
     UserService service;
 
     @Override
@@ -35,10 +32,10 @@ public class DirectorRegistrationListener implements ApplicationListener<OnRegis
         String token = UUID.randomUUID().toString();
         service.createDirectorToken(token, director);
 
-        String from = "ChoirManager1@yandex.ru";
+        String from = "ChorusManager1@yandex.ru";
         String address = director.getEmail();
         String subject = "Подтверждение регистрации Choir Manager";
-        String url = event.getAppUrl() + "/confirmRegistrationForDirector?token=" + token;
+        String url = "/confirmRegistrationForDirector?token=" + token;
         String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке";
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();

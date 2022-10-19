@@ -1,9 +1,7 @@
 package com.simiys.choirmanager.listeners;
 
 import com.simiys.choirmanager.events.OnDirectorPasswordRecoveryEvent;
-import com.simiys.choirmanager.events.OnSingerPasswordRecoveryEvent;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import com.simiys.choirmanager.service.PasswordRecoveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -32,7 +30,7 @@ public class DirectorPasswordRecoveryListener implements ApplicationListener<OnD
         String token = UUID.randomUUID().toString();
         service.createDirectorPassRecovToken(director, token);
 
-        String from = "ChoirManager1@yandex.ru";
+        String from = "ChorusManager1@yandex.ru";
         String address = director.getEmail();
         String subject = "Восстановление пароля Choir Manager";
         String url = "http://localhost:8080/passrec/forDirector?token=" + token;

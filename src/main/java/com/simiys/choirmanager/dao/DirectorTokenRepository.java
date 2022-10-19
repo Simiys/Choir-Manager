@@ -1,6 +1,6 @@
 package com.simiys.choirmanager.dao;
 
-import com.simiys.choirmanager.model.tokens.DirectorVerificationToken;
+import com.simiys.choirmanager.model.tables.tokens.DirectorVerificationToken;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -4,14 +4,13 @@ import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
 import com.simiys.choirmanager.events.OnRegistrationDirectorEvent;
 import com.simiys.choirmanager.events.OnRegistrationSingerEvent;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import com.simiys.choirmanager.model.UserForRegistration;
 import com.simiys.choirmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -58,10 +57,10 @@ public class RegistrationRestController {
 
         if(user.isRegent()) {
             ChoirDirector director =  service.registrRegent(user);
-            eventPublisher.publishEvent(new OnRegistrationDirectorEvent(director, request.getLocale(), request.getContextPath()));
+            eventPublisher.publishEvent(new OnRegistrationDirectorEvent(director));
         } else {
             Singer singer = service.registrSinger(user);
-            eventPublisher.publishEvent(new OnRegistrationSingerEvent(singer, request.getLocale(), request.getContextPath()));
+            eventPublisher.publishEvent(new OnRegistrationSingerEvent(singer));
         }
         return "success";
     }

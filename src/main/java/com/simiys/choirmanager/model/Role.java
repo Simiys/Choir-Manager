@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public enum Role {
     ADMIN(Set.of(Permission.READ))
     ,SINGER(Set.of(Permission.READ, Permission.JOIN_CHOIRS))
-    ,REGENT(Set.of(Permission.READ));
+    ,REGENT(Set.of(Permission.READ, Permission.MANAGE_CHOIR));
 
     public Set<Permission> permissions;
 

@@ -1,6 +1,6 @@
-package com.simiys.choirmanager.model.tokens;
+package com.simiys.choirmanager.model.tables.tokens;
 
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.Singer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;

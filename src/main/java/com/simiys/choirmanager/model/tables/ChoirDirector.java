@@ -1,5 +1,7 @@
-package com.simiys.choirmanager.model;
+package com.simiys.choirmanager.model.tables;
 
+import com.simiys.choirmanager.model.Role;
+import com.simiys.choirmanager.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,6 +58,9 @@ public class ChoirDirector {
     @OneToMany(mappedBy = "director", cascade = CascadeType.ALL)
     private Set<Singer> choir;
 
+    @OneToMany(mappedBy = "director", cascade = CascadeType.ALL)
+    private List<WorshipRefuse> worshipRefuses;
+
     public ChoirDirector() {}
 
     public void update(List<String> worships) {
@@ -92,5 +97,9 @@ public class ChoirDirector {
         this.role = Role.REGENT;
         this.status = Status.ACTIVE;
         this.choir = new HashSet<>();
+    }
+
+    public void addRefuse(WorshipRefuse refuse) {
+        this.worshipRefuses.add(refuse);
     }
 }

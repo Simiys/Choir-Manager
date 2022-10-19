@@ -1,6 +1,6 @@
-package com.simiys.choirmanager.model.tokens;
+package com.simiys.choirmanager.model.tables.tokens;
 
-import com.simiys.choirmanager.model.ChoirDirector;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

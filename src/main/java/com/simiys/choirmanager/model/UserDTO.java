@@ -1,5 +1,7 @@
 package com.simiys.choirmanager.model;
 
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

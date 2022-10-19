@@ -1,5 +1,8 @@
-package com.simiys.choirmanager.model;
+package com.simiys.choirmanager.model.tables;
 
+import com.simiys.choirmanager.model.Role;
+import com.simiys.choirmanager.model.Status;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

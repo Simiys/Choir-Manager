@@ -2,10 +2,12 @@ package com.simiys.choirmanager.controller;
 
 import com.simiys.choirmanager.dao.DirectorRepository;
 import com.simiys.choirmanager.dao.SingerRepository;
+import com.simiys.choirmanager.dao.WorshipRefuseRepository;
 import com.simiys.choirmanager.model.AlertMessages;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import com.simiys.choirmanager.model.UserDTO;
+import com.simiys.choirmanager.model.tables.WorshipRefuse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     SingerRepository singerRepository;
+
+    @Autowired
+    WorshipRefuseRepository refuseRepository;
 
     @GetMapping("/all")
     public String getTableWithAllUsers(Model model, Principal principal) {
@@ -88,8 +93,16 @@ public class UserController {
     }
 
     @GetMapping("/choirlist")
-    public String hui() {
+    public String choirlist() {
         return "choirslist";
+    }
+
+    @GetMapping("/refuseMessages")
+    public String RefuseMessagesPage (Principal principal, Model model) {
+        ChoirDirector director = directorRepository.findByEmail(principal.getName()).orElseThrow();
+        List<WorshipRefuse> refuses = director.getWorshipRefuses();
+        model.addAttribute("refuses", refuses);
+        return "refuseMessagesPage";
     }
 
     @GetMapping("/alert")
@@ -115,6 +128,9 @@ public class UserController {
                 return "AlertPage";
             case "NSUP":
                 model.addAttribute("message", AlertMessages.NO_SUCH_USER_PRESENT.getMessage());
+                return "AlertPage";
+            case "JOIN_MM":
+                model.addAttribute("message", AlertMessages.JOIN_MM.getMessage());
                 return "AlertPage";
             case "JOIN":
                 model.addAttribute("message", AlertMessages.JOIN.getMessage());

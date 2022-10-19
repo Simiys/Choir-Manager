@@ -23,16 +23,16 @@
             let str = xhr.response;
             switch(str) {
                 case 'emailError':
-                    document.getElementById("emailerror").style.display = "flex";
+                    document.getElementById("emailerror").style.display = "block";
                 break;
                 case 'fieldException':
-                    document.getElementById("fieldserror").style.display = "flex";
+                    document.getElementById("fieldserror").style.display = "block";
                 break;
                 case 'passwordError':
-                    document.getElementById("matchingerror").style.display = "flex";
+                    document.getElementById("matchingerror").style.display = "block";
                 break;
                 case 'userIsPresent':
-                    document.getElementById("userispresent").style.display = "flex";
+                    document.getElementById("userispresent").style.display = "block";
                 break;
                 default:
                 window.location.replace("/alert?type=REG_MM");
@@ -40,8 +40,8 @@
         }
         function checkCheckBox() {
             if (document.getElementById("regent").checked) {
-                document.getElementById("choirName").style.display = "flex";
-                document.getElementById("choirNameL").style.display = "flex";
+                document.getElementById("choirName").style.display = "block";
+                document.getElementById("choirNameL").style.display = "block";
             } else {
                 document.getElementById("choirName").style.display = "none";
                 document.getElementById("choirNameL").style.display = "none";
@@ -54,36 +54,109 @@
             }
         }
     </script>
+    <style>
+    .form-control{
+        border-radius: 5px;
+    }
+    div{
+        margin-top: 1%;
+        height: 86%;
+        width: 30%;
+        background: #686e78;
+    }
+    .button:hover {
+        background: rgb(253, 253, 253);
+        color: #f7883d;
+        box-shadow: inset 0 0 0 3px #f7883d;
+    }
+    .button {
+        border: none;
+        background: #f7883d;
+        color: #f2f2f2;
+        font-size: 18px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        transition: all 500ms ease;
+        cursor: pointer;
+        height: 8%;
+        width: 75%;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        }
+    body {
+        background-color: #bbbfd6 ;
+    }
+    .input {
+        background-color: #888888;
+        outline: 3px solid #b1b0b0;
+        border: #b1b0b0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        height: 4%;
+        width: 70%;
+        transition: all 300ms ease;
+    }
+    ::placeholder {
+        color: rgb(86, 84, 84);
+        font-size: medium;
+    }
+    .input:focus {
+        outline: 5px solid #b1b0b0;
+    }
+    .ref {
+        color:#151c2d ;
+        margin-bottom: 30px;
+    }
+    .error {
+        display: none;
+        color: #8a1515;
+    }
+    #regent {
+        accent-color: #f7883d;
+        height: 15px;
+        width: 15px;
+        margin-top: 5px;
+    }
+    </style>
 </head>
 <body>
 <br>
-<form name="reg">
-    <label for="email">Email:</label>
-    <input  id="email" oninput="removeErrorsM()" required>
-    <br>
-    <label for="firstName">Имя:</label>
-    <input  id="firstName" oninput="removeErrorsM()" required>
-    <br>
-    <label for="lastName">Фамилия:</label>
-    <input  id="lastName" oninput="removeErrorsM()" value="">
-    <br>
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" oninput="removeErrorsM()" required>
-    <br>
-    <label for="matching password" >Повторите пароль:</label>
-    <input type="password" id="matching password" oninput="removeErrorsM()" required>
-    <br>
-    <label for="regent">Выберите, если хотите быть регентом:</label>
-    <input type="checkbox" id="regent" onclick="checkCheckBox()">
-    <br>
-    <label id="choirNameL" for="choirName" style="display: none">Название хора:</label>
-    <input  id="choirName" value="" style="display: none" >
-</form>
-<p style="display: none" id="emailerror" class="error">Email указан неправильно</p>
-<p style="display: none" id="fieldserror" class="error">Все поля должны быть запонленены</p>
-<p style="display: none" id="matchingerror" class="error">Поля пароль и повторите пароль должны совпадать</p>
-<p style="display: none" id="userispresent" class="error">Такой пользователь уже существует <br><a href="/auth/login">Войти</a></p>
-<button onclick="registration()">Зарегистрироваться</button>
+<center>
+    <div>
+        <br>
+        <h2 style="margin-top: 10x;"><font face="Microsoft YaHei">Регистрация</font></h2>
+        <label for="email"><font face="Microsoft YaHei">Email:</font></label>
+        <br>
+        <input class="input" id="email" oninput="removeErrorsM()" required>
+        <br>
+        <label for="firstName"><font face="Microsoft YaHei">Имя:</font></label>
+        <br>
+        <input class="input" id="firstName" oninput="removeErrorsM()" required>
+        <br>
+        <label for="lastName"><font face="Microsoft YaHei">Фамилия:</font></label>
+        <br>
+        <input class="input" id="lastName" oninput="removeErrorsM()" value="">
+        <br>
+        <label for="password"><font face="Microsoft YaHei">Пароль:</font></label>
+        <br>
+        <input class="input" type="password" id="password" oninput="removeErrorsM()" required>
+        <br>
+        <label for="matching password" ><font face="Microsoft YaHei">Повторите пароль:</font></label>
+        <br>
+        <input class="input" type="password" id="matching password" oninput="removeErrorsM()" required>
+        <br>
+        <label for="regent"><font face="Microsoft YaHei">Выберите, если хотите быть регентом:</font><input type="checkbox" id="regent" onclick="checkCheckBox()"></label>
 
+        <br>
+        <label id="choirNameL" for="choirName" style="display: none"><font face="Microsoft YaHei">Название хора:</font></label>
+        <input class="input" id="choirName" value="" style="display: none">
+        <button class="button" onclick="registration()">Зарегистрироваться</button>
+        <p id="emailerror" class="error"><font face="Microsoft YaHei">Email указан неправильно</font></p>
+        <p id="fieldserror" class="error"><font face="Microsoft YaHei">Все поля должны быть запонленены</font></p>
+        <p id="matchingerror" class="error"><font face="Microsoft YaHei">Поля пароль и повторите пароль должны совпадать</font></p>
+        <p id="userispresent" class="error"><font face="Microsoft YaHei">Такой пользователь уже существует</font><br><a class="ref" href="/auth/login">Войти</a></p>
+
+    </div>
+</center>
 </body>
 </html>

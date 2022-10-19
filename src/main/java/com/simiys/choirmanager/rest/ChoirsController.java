@@ -3,11 +3,13 @@ package com.simiys.choirmanager.rest;
 import com.simiys.choirmanager.dao.DirectorRepository;
 
 import com.simiys.choirmanager.dao.SingerRepository;
+import com.simiys.choirmanager.events.OnSingerJoinEvent;
 import com.simiys.choirmanager.model.ChoirDTO;
-import com.simiys.choirmanager.model.ChoirDirector;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
+import com.simiys.choirmanager.model.tables.Singer;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,9 @@ public class ChoirsController {
     DirectorRepository directorRepository;
 
     @Autowired
+    ApplicationEventPublisher publisher;
+
+    @Autowired
     SingerRepository singerRepository;
 
     @GetMapping("/getAllChoirs")
@@ -35,15 +40,21 @@ public class ChoirsController {
     }
 
     @GetMapping("/joinToChoir")
-    public String joinChoir(@RequestParam long id, Principal principal) {
+    public void joinChoir(@RequestParam long id, Principal principal) {
         Singer singer = singerRepository.findByEmail(principal.getName()).orElseThrow();
         ChoirDirector director = directorRepository.findById(id).orElseThrow();
+        publisher.publishEvent(new OnSingerJoinEvent(singer.getFirstName() + " " + singer.getLastName(), singer.getId(), director.getEmail(), singer.getEmail()));
+
+    }
+
+    @GetMapping("/joinSinger")
+    public void joinSinger(@RequestParam long id, Principal principal) {
+        Singer singer = singerRepository.findById(id).orElseThrow();
+        ChoirDirector director = directorRepository.findByEmail(principal.getName()).orElseThrow();
         singer.setDirector(director);
         director.addSinger(singer);
         singerRepository.save(singer);
         directorRepository.save(director);
-        return "redirect:/alert?type=JOIN";
-
     }
 
 }

@@ -1,6 +1,6 @@
 package com.simiys.choirmanager.events;
 
-import com.simiys.choirmanager.model.ChoirDirector;
+import com.simiys.choirmanager.model.tables.ChoirDirector;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;

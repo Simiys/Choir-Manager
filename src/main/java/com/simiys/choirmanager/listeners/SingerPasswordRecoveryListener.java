@@ -1,7 +1,7 @@
 package com.simiys.choirmanager.listeners;
 
 import com.simiys.choirmanager.events.OnSingerPasswordRecoveryEvent;
-import com.simiys.choirmanager.model.Singer;
+import com.simiys.choirmanager.model.tables.Singer;
 import com.simiys.choirmanager.service.PasswordRecoveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -30,7 +30,7 @@ public class SingerPasswordRecoveryListener implements ApplicationListener<OnSin
         String token = UUID.randomUUID().toString();
         service.createSingerPassRecovToken(singer, token);
 
-        String from = "ChoirManager1@yandex.ru";
+        String from = "ChorusManager1@yandex.ru";
         String address = singer.getEmail();
         String subject = "Восстановление пароля Choir Manager";
         String url = "http://localhost:8080/passrec/forSinger?token=" + token;
