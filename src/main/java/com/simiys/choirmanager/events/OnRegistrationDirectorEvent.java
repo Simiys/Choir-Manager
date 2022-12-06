@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.Locale;
-
 @Getter
 @Setter
 public class OnRegistrationDirectorEvent extends ApplicationEvent {

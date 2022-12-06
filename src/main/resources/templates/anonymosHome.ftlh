@@ -49,11 +49,11 @@
 </div>
 
 <form method="get" action="/auth/login">
-    <button type="submit" class="button"><font face="Microsoft YaHei">Войти</font></button>
+    <button type="submit" class="button"><font size="6" face="Microsoft YaHei">Войти</font></button>
 </form>
 
 <form method="get" action="/registration">
-    <button type="submit" class="button"><font face="Microsoft YaHei">Регистрация</font></button>
+    <button type="submit" class="button"><font size="6" face="Microsoft YaHei">Регистрация</font></button>
 </form>
 
 </body>

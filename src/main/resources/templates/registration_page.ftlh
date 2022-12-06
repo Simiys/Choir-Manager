@@ -13,6 +13,8 @@
             registration.matchingPassword = document.getElementById("matching password").value;
             registration.isRegent = document.getElementById("regent").checked;
             registration.choirName = document.getElementById("choirName").value;
+            registration.voiceType = document.getElementById("voiceType").value;
+
 
             let json = JSON.stringify(registration);
 
@@ -42,9 +44,13 @@
             if (document.getElementById("regent").checked) {
                 document.getElementById("choirName").style.display = "block";
                 document.getElementById("choirNameL").style.display = "block";
+                document.getElementById("voiceType").style.display = "none";
+                document.getElementById("voiceTypeL").style.display = "none";
             } else {
                 document.getElementById("choirName").style.display = "none";
                 document.getElementById("choirNameL").style.display = "none";
+                document.getElementById("voiceType").style.display = "block";
+                document.getElementById("voiceTypeL").style.display = "block";
             }
         }
         function removeErrorsM() {
@@ -117,6 +123,15 @@
         width: 15px;
         margin-top: 5px;
     }
+    select {
+        width: 30%;
+        margin-top: 5px;
+        background-color: #cccccf;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        display: block;
+    }
     </style>
 </head>
 <body>
@@ -145,8 +160,15 @@
         <br>
         <input class="input" type="password" id="matching password" oninput="removeErrorsM()" required>
         <br>
-        <label for="regent"><font face="Microsoft YaHei">Выберите, если хотите быть регентом:</font><input type="checkbox" id="regent" onclick="checkCheckBox()"></label>
-
+        <label for="regent" style="margin-bottom: 10px;"><font face="Microsoft YaHei">Выберите, если хотите быть регентом:</font><input type="checkbox" id="regent" onclick="checkCheckBox()"></label>
+        <br>
+        <br>
+        <label for="voiceType" id="voiceTypeL"><font face="Microsoft YaHei">Выберите ваш тембр(тип голоса):</font><select name="voice" id="voiceType">
+            <option value="S" selected>Сопрано</option>
+            <option value="A">Альт</option>
+            <option value="T">Тенор</option>
+            <option value="B">Бас</option>
+        </select></label>
         <br>
         <label id="choirNameL" for="choirName" style="display: none"><font face="Microsoft YaHei">Название хора:</font></label>
         <input class="input" id="choirName" value="" style="display: none">

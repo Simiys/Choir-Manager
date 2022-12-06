@@ -43,7 +43,7 @@ public class UserController {
 
         Singer[] s = new Singer[singers.size()];
         singers.toArray(s);
-        for (Singer singer: s){
+        for (Singer singer : s){
             singer.monthUpdate();
             singerRepository.save(singer);
         }
@@ -66,6 +66,9 @@ public class UserController {
     @GetMapping("/singer")
     public String getSingerShedule(Model model, Principal principal) {
         Singer singer = singerRepository.findByEmail(principal.getName()).orElseThrow();
+        if (singer.getDirector() == null) {
+            return "singerNullDir";
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd EE").withLocale(Locale.forLanguageTag("ru"));
 

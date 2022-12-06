@@ -3,6 +3,8 @@ package com.simiys.choirmanager.model.tables.tokens;
 import com.simiys.choirmanager.model.tables.Singer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -24,6 +26,7 @@ public class SingerVerificationToken {
 
     @JoinColumn(name = "singer_id")
     @OneToOne(targetEntity = Singer.class, cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Singer singer;
 
     public SingerVerificationToken(Singer singer, String token) {

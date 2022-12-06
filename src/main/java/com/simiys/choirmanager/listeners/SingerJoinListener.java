@@ -23,14 +23,14 @@ public class SingerJoinListener implements ApplicationListener<OnSingerJoinEvent
         String address = event.getDirectorEmail();
         String subject = "Присоединение певца";
         String url = "/api/joinSinger?id=" + event.getId();
-        String message = "К вашему хору хочет присоедениться " + event.getName() + "(" + event.getSingerEmail() + "). \r Для присоединения перейдите по ссылке ниже:";
+        String message = "К вашему хору хочет присоедениться " + event.getName() + "(" + event.getSingerEmail() + "). \r Для того, чтобы присоеденить данного певца к вашему хору перейдите по ссылке ниже:";
 
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);
         mailMessage.setTo(address);
         mailMessage.setSubject(subject);
-        mailMessage.setText(message + "\r\n" + "http://localhost:8080" + url + "\n С уважением Chorus Manager");
+        mailMessage.setText(message + "\r\n" + "http://localhost:8080" + url + "\n Спасибо, что пользуетесь нашим приложением!");
         mailSender.send(mailMessage);
 
     }

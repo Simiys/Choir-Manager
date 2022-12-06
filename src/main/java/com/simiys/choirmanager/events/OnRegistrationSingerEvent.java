@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.Locale;
-
 @Getter
 @Setter
 public class OnRegistrationSingerEvent extends ApplicationEvent {
@@ -15,7 +13,5 @@ public class OnRegistrationSingerEvent extends ApplicationEvent {
     public OnRegistrationSingerEvent(Singer singer) {
         super(singer);
         this.singer = singer;
-
-
     }
 }

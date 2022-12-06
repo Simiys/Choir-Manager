@@ -20,12 +20,16 @@
             }
             if (resp == "on_reg") {
                 document.getElementById("regerror").style.display = 'block';
+                document.getElementById("username").classList = 'inputerror';
             }
             if (resp == "unknown_user") {
                 document.getElementById("usererror").style.display = 'block';
+                document.getElementById("username").classList = 'inputerror';
             }
             if (resp == "incorrect_pass") {
                 document.getElementById("emailerror").style.display = 'block';
+                document.getElementById("username").classList = 'inputerror';
+                document.getElementById("password").classList = 'inputerror';
             }
         }
         function sendForm() {
@@ -42,6 +46,8 @@
             for (let i = 0; i < errorMessages.length; i++) {
                 errorMessages[i].style.display = "none";
             }
+            document.getElementById("username").classList = 'input';
+            document.getElementById("password").classList = 'input';
         }
         function email() {
             let xhr = new XMLHttpRequest();
@@ -87,7 +93,14 @@
         background-color: #888888;
         outline: 3px solid #b1b0b0;
         border: #b1b0b0;
-
+        height: 6%;
+        width: 70%;
+        transition: all 300ms ease;
+    }
+    .inputerror {
+        background-color: #7f4b4b;
+        outline: 5px solid #8a1515;
+        border: #8a1515;
         height: 6%;
         width: 70%;
         transition: all 300ms ease;

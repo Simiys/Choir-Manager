@@ -62,7 +62,7 @@ public class ChoirController {
             } else {
                 worships[date - 1] = "Н";
             }
-            singer.setWorships(StringUtils.join(worships, ","));
+            singer.setWorships(worships);
             singerRepository.save(singer);
         }
         refuseRepository.delete(refuse);

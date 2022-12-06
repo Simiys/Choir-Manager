@@ -34,7 +34,7 @@ public class SingerPasswordRecoveryListener implements ApplicationListener<OnSin
         String address = singer.getEmail();
         String subject = "Восстановление пароля Choir Manager";
         String url = "http://localhost:8080/passrec/forSinger?token=" + token;
-        String message = "Для восстановления пароля перейдите по ссылке ниже. \n Ссылка действительна в течении 15 минут. \r\n " + url +" \r\n C уважение команда разработки Choir Manager!";
+        String message = "Для восстановления пароля перейдите по ссылке ниже. \n Ссылка действительна в течении 15 минут. \r\n " + url +" \r\n Спасибо, что пользуетесь нашим приложением";
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(from);

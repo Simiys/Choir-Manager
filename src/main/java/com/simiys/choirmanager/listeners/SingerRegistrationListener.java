@@ -42,8 +42,8 @@ public class SingerRegistrationListener implements ApplicationListener<OnRegistr
         String from = "ChorusManager1@yandex.ru";
         String address = singer.getEmail();
         String subject = "Завершение регистрации Choir Manager";
-        String url = "http://localhost:8080/confirmRegistrationForSinger";
-        String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке";
+        String url = "http://localhost:8080/confirmRegistrationForSinger?token=" + token;
+        String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке \n \r" + url;
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(from);

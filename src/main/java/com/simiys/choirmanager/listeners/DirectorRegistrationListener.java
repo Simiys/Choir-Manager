@@ -5,7 +5,6 @@ import com.simiys.choirmanager.model.tables.ChoirDirector;
 import com.simiys.choirmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -34,15 +33,15 @@ public class DirectorRegistrationListener implements ApplicationListener<OnRegis
 
         String from = "ChorusManager1@yandex.ru";
         String address = director.getEmail();
-        String subject = "Подтверждение регистрации Choir Manager";
-        String url = "/confirmRegistrationForDirector?token=" + token;
-        String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке";
+        String subject = "Подтверждение регистрации Chorus Manager";
+        String url = "http://localhost:8080/confirmRegistrationForDirector?token=" + token;
+        String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке \r\n" + url;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);
         mailMessage.setTo(address);
         mailMessage.setSubject(subject);
-        mailMessage.setText(message + "\r\n" + "http://localhost:8080" + url);
+        mailMessage.setText(message);
         mailSender.send(mailMessage);
 
 

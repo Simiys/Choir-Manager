@@ -16,6 +16,7 @@ public class UserForRegistration {
     private String firstName;
     private String lastName;
     private String choirName;
+    private String voiceType;
     private boolean isRegent;
 
 

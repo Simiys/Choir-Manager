@@ -2,6 +2,8 @@ package com.simiys.choirmanager.model.tables;
 
 import com.simiys.choirmanager.model.Role;
 import com.simiys.choirmanager.model.Status;
+import com.simiys.choirmanager.model.tables.Singer;
+import com.simiys.choirmanager.model.tables.WorshipRefuse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,17 +66,23 @@ public class ChoirDirector {
     public ChoirDirector() {}
 
     public void update(List<String> worships) {
-        if (this.currentMonth != LocalDate.now().getMonthValue()) {
-            this.worships = StringUtils.join(worships,",");
-            this.currentMonth = LocalDate.now().getMonthValue();
+        this.monthUpdate();
+        String[] directorWorships = this.worships.split(",");
+        if (directorWorships.length > worships.size()) {
+            for (int i = 0; i < worships.size(); i++) {
+                directorWorships[i] = worships.get(i) + directorWorships[i].substring(1);
+            }
         } else {
-            this.worships = StringUtils.join(worships,",");
+            for (int i = 0; i < directorWorships.length; i++) {
+                directorWorships[i] = worships.get(i) + directorWorships[i].substring(1);
+            }
         }
+        this.worships = StringUtils.join(directorWorships, ",");
     }
     public void monthUpdate() {
         if (this.currentMonth != LocalDate.now().getMonthValue()) {
             this.lastMonthWorships = this.worships;
-            String [] worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н".split(",");
+            String [] worships = "Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__".split(",");
             for (int i = LocalDate.now().lengthOfMonth(); worships.length > LocalDate.now().lengthOfMonth();i--) {
                 worships = ArrayUtils.remove(worships, i - 1);
             }
@@ -87,8 +95,8 @@ public class ChoirDirector {
     }
 
     public ChoirDirector(String email, String password,String firstName, String lastName) {
-        this.worships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
-        this.lastMonthWorships = "Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н,Н";
+        this.worships ="Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__";
+        this.lastMonthWorships = "Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__,Н__";
         this.currentMonth = LocalDate.now().getMonthValue();
         this.email = email;
         this.firstName = firstName;

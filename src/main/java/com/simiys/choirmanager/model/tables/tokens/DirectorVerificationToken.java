@@ -3,6 +3,7 @@ package com.simiys.choirmanager.model.tables.tokens;
 import com.simiys.choirmanager.model.tables.ChoirDirector;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,6 +28,7 @@ public class DirectorVerificationToken {
 
     @JoinColumn(name = "dir_id")
     @OneToOne(targetEntity = ChoirDirector.class, cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private ChoirDirector director;
 
     public DirectorVerificationToken(ChoirDirector director, String token) {

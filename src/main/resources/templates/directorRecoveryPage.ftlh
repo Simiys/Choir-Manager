@@ -17,6 +17,7 @@
                 window.location.replace("/alert?type=" + resp);
             }
         }
+
         function check() {
             let pass1 = document.getElementById("pass_1").value;
             let pass2 = document.getElementById("pass_2").value;
@@ -26,8 +27,15 @@
                 document.getElementById("msg").style.display = "block";
                 return false;
             }
-            return !document.getElementById("pass_1").value == "";
+            if(document.getElementById("pass_1").value == "") {
+                document.getElementById("pass_1").classList = 'inputerror';
+                document.getElementById("pass_2").classList = 'inputerror';
+                document.getElementById("msg2").style.display = "block";
+                return false;
+            }
+            return true;
         }
+
         function removeErrorsM() {
             let errorMessages = document.getElementsByClassName("error");
             for (let i = 0; i < errorMessages.length; i++) {
@@ -43,7 +51,7 @@
     }
     div{
         margin-top: 7%;
-        height: 41%;
+        height: 47.5%;
         width: 20%;
         background: #686e78;
     }
@@ -73,7 +81,7 @@
         height: 9%;
         width: 70%;
         transition: all 300ms ease;
-        margin-top: 5px;
+        margin-top: 10px;
     }
     .input:focus {
         outline: 5px solid #b1b0b0;
@@ -89,7 +97,7 @@
         height: 9%;
         width: 70%;
         transition: all 300ms ease;
-        margin-top: 5px;
+        margin-top: 10px;
     }
     </style>
 </head>
@@ -107,6 +115,7 @@
         </p>
         <button onclick="send()" class="button">Восстановить пароль</button>
         <p id="msg" class="error"><font size="4" face="Microsoft YaHei">Пароли должны совпадать</font></p>
+        <p id="msg2" class="error"><font size="4" face="Microsoft YaHei">Все поля должны быть заполнены</font></p>
     </div>
 </center>
 </body>
