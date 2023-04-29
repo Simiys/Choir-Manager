@@ -94,27 +94,26 @@ public class UserService {
 
     public void autoManage(List<Singer> singers, int date, int type) {
         Map<Singer, Integer> rating = new HashMap<>();
-        Integer points = 0;
+        Integer priority = 0;
         for (Singer singer: singers) {
             if (singer.getArrayWorships()[date - 1].charAt(1) == 'c') {
                 continue;
             }
             if (singer.getArrayWorships()[date - 1].charAt(1) == 'd') {
-                points = -10;
+                priority = -10;
             }
             if (singer.getArrayWorships()[date - 1].charAt(1) == 'w') {
-                points = 10;
+                priority = 10;
             }
             for (int i = date - 2; i >= 0; i--) {
-                if (singer.getArrayWorships()[i].charAt(1) == '_') {
-                    points++;
-                } else {
-                    break;
+                if (singer.getArrayWorships()[i].charAt(0) == 'Н') {
+                    priority++;
                 }
             }
-            rating.put(singer, points);
+            rating.put(singer, priority);
+            priority = 0;
         }
-        if (rating.entrySet().size() == 0) {
+        if (rating.size() == 0) {
             return;
         }
 

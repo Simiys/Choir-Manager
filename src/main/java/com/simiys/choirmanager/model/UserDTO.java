@@ -16,12 +16,14 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private List<String> worships;
+    private String voice;
 
     public UserDTO(Singer singer) {
         this.firstName = singer.getFirstName();
         this.lastName = singer.getLastName();
         this.worships = new ArrayList<>(Arrays.asList(singer.getWorships().split(",")));
         this.username = singer.getEmail();
+        this.voice = singer.getVoiceType().getType();
     }
 
     public UserDTO(ChoirDirector director) {
@@ -29,12 +31,6 @@ public class UserDTO {
         this.lastName = director.getLastName();
         this.worships = new ArrayList<>(Arrays.asList(director.getWorships().split(",")));
         this.username = director.getEmail();
-    }
-
-    public UserDTO(String username) {
-        this.username = username;
-        this.lastName = null;
-        this.firstName = null;
-        this.worships = null;
+        this.voice = "";
     }
 }

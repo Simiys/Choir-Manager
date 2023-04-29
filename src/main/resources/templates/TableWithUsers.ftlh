@@ -15,7 +15,7 @@
                     let cLength = cells.length;
 
                     for(j = 0;j < cLength;j++) {
-                        if (j == 1) {
+                        if (j == 1 || j == 2) {
                             continue;
                         }
                         let select = cells[j].firstChild;
@@ -38,7 +38,6 @@
                 xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                 xhr.send(json);
             }
-
             function logout() {
             let xhr = new XMLHttpRequest();
                 xhr.open("POST", '/auth/logout', true);
@@ -51,12 +50,10 @@
                 xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
                 xhr.send();
             }
-
              function errClear() {
                 document.getElementById("f2date").classList = 'input';
                 document.getElementById("err").style.display = 'none';
              }
-
              function sendRequest() {
                 let date = document.getElementById("f2date").value;
                 let type = document.getElementById("f2select").value
@@ -160,7 +157,7 @@
         display: none;
     }
     .name {
-        width: 20%;
+        width: 15%;
     }
     .button {
             border: none;
@@ -172,7 +169,7 @@
             height: 10%;
             width: 30%;
             margin-left: 35%;
-        }
+    }
     .button:hover {
         background: rgb(217, 225, 226);
         color: #f7883d;
@@ -265,13 +262,15 @@
     <#list users as user>
         <tr>
             <td><font  face="Microsoft YaHei">Дата</font></td>
+            <td><font  face="Microsoft YaHei" >Тембр</font></td>
             <#list dates as date>
             <td><font  face="Microsoft YaHei">${date}</font></td>
             </#list>
         </tr>
         <tr>
             <th class="email">${user.username}</th>
-            <td class="name"><font  face="Microsoft YaHei">${user.firstName} ${user.lastName}</font></td>
+            <td class="name"><font face="Microsoft YaHei">${user.firstName} ${user.lastName}</font></td>
+            <td class="std"><font face="Microsoft YaHei">${user.voice}</font></td>
                 <#list user.worships as worship>
                     <td class="std"><select>
                         <#if "Н" == worship[0]>
@@ -333,7 +332,7 @@
 <div class="div1">
     <hr style="height:5px; visibility:hidden;" />
     <p><font face="Microsoft YaHei" size="4">Автоматическое распределение</font></p>
-    <label for="f2date"><font  face="Microsoft YaHei">День(число):</font></label>
+    <label for="f2date"><font  face="Microsoft YaHei">Дата:</font></label>
     <input oninput="errClear()" class="input" type="text" id="f2date">
     <label for="f2date"><font  face="Microsoft YaHei">Тип службы:</font></label>
     <select class="f2select" id="f2select">

@@ -79,13 +79,14 @@ public class ChoirsController {
 
     @PostMapping("/worshipModifier")
     public void addModifier(@RequestParam String modType, @RequestParam int day, @RequestParam String worshipType, Principal principal) {
+        System.out.println("CC 82 started");
         Singer singer = singerRepository.findByEmail(principal.getName()).get();
         String[] worships = singer.getWorships().split(",");
         String worship = worships[day - 1];
         if (worshipType.equals("v")) {
             worships[day - 1] = worship.substring(0,2) + modType;
         } else {
-            worships[day - 1] = worship.substring(0,1) + modType + worship.substring(2);
+            worships[day - 1] = worship.charAt(0) + modType + worship.substring(2);
         }
         singer.setWorships(worships);
         singerRepository.save(singer);
@@ -103,6 +104,7 @@ public class ChoirsController {
         List<Singer> voiceA = singers.stream().filter(singer -> singer.getVoiceType().equals(VoiceType.A)).collect(Collectors.toList());
         List<Singer> voiceT = singers.stream().filter(singer -> singer.getVoiceType().equals(VoiceType.T)).collect(Collectors.toList());
         List<Singer> voiceB = singers.stream().filter(singer -> singer.getVoiceType().equals(VoiceType.B)).collect(Collectors.toList());
+
 
         service.autoManage(voiceS, date, type);
         service.autoManage(voiceA, date, type);
@@ -134,7 +136,7 @@ public class ChoirsController {
             mod = "c";
         }
         if (request.getWorshipType() == 1) {
-            arr[request.getDate() - 1] = worship.charAt(0) + mod + worship.substring(2);
+            arr[request.getDate() - 1] = worship.charAt(0) + mod + worship.charAt(2);
             singer.setWorships(arr);
             singerRepository.save(singer);
             return "ok";

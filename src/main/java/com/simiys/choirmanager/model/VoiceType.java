@@ -1,16 +1,22 @@
 package com.simiys.choirmanager.model;
 
 public enum VoiceType {
-    S("S"),A("A"),
-    T("T"),B("B");
+    S("S", 4),A("A", 3),
+    T("T", 2),B("B",1);
 
     private String type;
 
-    VoiceType (String type) {
-        this.type = type;
+    private int val;
+
+    VoiceType (String type, int val) {
+        this.type = type; this.val = val;
     }
 
     public String getType() {
         return type;
+    }
+
+    public int getVal() {
+        return val;
     }
 }

@@ -55,12 +55,12 @@ public class ChoirController {
             String[] worships = singer.getWorships().split(",");
             if (worships[date - 1].equals("П")) {
                 if (refuse.getType().equals("У")) {
-                    worships[date - 1] = "В";
+                    worships[date - 1] = "В" + worships[date - 1].substring(1);
                 } else {
-                    worships[date - 1] = "У";
+                    worships[date - 1] = "У" + worships[date - 1].substring(1);
                 }
             } else {
-                worships[date - 1] = "Н";
+                worships[date - 1] = "Н" + worships[date - 1].substring(1);
             }
             singer.setWorships(worships);
             singerRepository.save(singer);

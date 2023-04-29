@@ -158,11 +158,9 @@
                 alert("Регент получил ваше сообщение и в скором времени его проверит")
             }
             function sendWorshMod() {
-                        console.log("started");
                 let mod = {};
                 mod.date = document.getElementById("f2date").value;
-                mod.modType = document.getElementById("f2modType").value - 2;
-                mod.modType += 2;
+                mod.modType = document.getElementById("f2modType");
                 mod.worshipType = document.getElementById("f2worshipType").value;
                 let xhr = new XMLHttpRequest();
                 xhr.open("POST","/api/worshipMod",false);
