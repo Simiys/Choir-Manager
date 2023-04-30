@@ -37,7 +37,7 @@ public class DirectorPasswordRecoveryListener implements ApplicationListener<OnD
         String from = "ChorusManager1@yandex.ru";
         String address = director.getEmail();
         String subject = "Восстановление пароля Choir Manager";
-        String url = "http://localhost:8080/passrec/forDirector?token=" + token;
+        String url = "https://chorusmanager.herokuapp.com/passrec/forDirector?token=" + token;
         String message = "Для восстановления пароля перейдите по ссылке ниже. \n Ссылка действительна в течении 15 минут. \r\n  \n" + url +" \r\n \n Спасибо, что пользуетесь нашим приложением";
 
 
@@ -48,5 +48,6 @@ public class DirectorPasswordRecoveryListener implements ApplicationListener<OnD
         mailMessage.setText(message);
         mailSender.send(mailMessage);
         mailSender.send(mailMessage);
+
     }
 }

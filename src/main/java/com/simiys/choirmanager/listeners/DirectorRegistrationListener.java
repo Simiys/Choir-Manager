@@ -34,7 +34,7 @@ public class DirectorRegistrationListener implements ApplicationListener<OnRegis
         String from = "ChorusManager1@yandex.ru";
         String address = director.getEmail();
         String subject = "Подтверждение регистрации Chorus Manager";
-        String url = "http://localhost:8080/confirmRegistrationForDirector?token=" + token;
+        String url = "https://chorusmanager.herokuapp.com/confirmRegistrationForDirector?token=" + token;
         String message = "Спасибо, что пользуетесь нашим приложением! \r Для завершения регистрации перейдите по этой ссылке \r\n" + url;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();

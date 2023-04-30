@@ -30,7 +30,7 @@ public class SingerJoinListener implements ApplicationListener<OnSingerJoinEvent
         mailMessage.setFrom(from);
         mailMessage.setTo(address);
         mailMessage.setSubject(subject);
-        mailMessage.setText(message + "\r\n" + "http://localhost:8080" + url + "\n Спасибо, что пользуетесь нашим приложением!");
+        mailMessage.setText(message + "\r\n" + "https://chorusmanager.herokuapp.com/" + url + "\n Спасибо, что пользуетесь нашим приложением!");
         mailSender.send(mailMessage);
 
     }
